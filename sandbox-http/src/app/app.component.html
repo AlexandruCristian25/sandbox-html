@@ -1,0 +1,37 @@
+<div style="margin-left: 20px;">
+    <form (ngSubmit)="onSubmit()" #form1="ngForm">
+        <div class="col-md-7">
+            <label for="product" class="form-label">Product name:</label>
+            <input type="text" class="form-control form-ontrol-lg" id="product" required ngModel name="product">
+        </div>
+        <div class="col-md-7">
+            <label for="description" class="form-label">Product description:</label>
+            <input type="text" class="form-control form-ontrol-lg" id="description" required ngModel name="description">
+        </div>
+        <div class="mt-4">
+            <button class="btn btn-primary" [disabled]="!form1.form.valid" type="submit">Submit</button>
+        </div>
+        <hr style="width: 90%;">
+        <div style="margin: 10px 0px;">
+            <button class="btn btn-primary" (click)="getDataFromServer()">Get Products</button>
+            <button class="btn btn-primary" style="margin-left: 20px;" (click)="deleteDataFromServer()">Delete Products</button>
+        </div>
+        <div style="width: 90%;">
+            <div class="spinner-border text-primary" role="status" *ngIf="isLoading && !newError">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+            <div *ngIf="newError">
+                An error occured:
+            </div>
+            <p *ngIf="productList.length === 0 && !isLoading">No products available</p>
+            <div *ngIf="productList.length > 0 && !isLoading">
+                <ul class="list-group">
+                    <li class="list-group-item" *ngFor="let product of productList">
+                        <h3>{{ product.product }}</h3>
+                        <p>{{ product.description }}</p>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </form>
+</div>
